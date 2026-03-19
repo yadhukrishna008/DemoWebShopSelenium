@@ -2,6 +2,8 @@ package utils;
 
 import java.time.Duration;
 import java.util.List;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,7 +16,7 @@ public class PageUtils {
 	Actions myAction= new Actions(DriverManager.getDriver());
 	
 	private WebDriverWait getWait() {
-        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
+        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(5));
     }
 	
 	public void click(By el) {
@@ -30,8 +32,14 @@ public class PageUtils {
 	    }
 	}
 	
+	public void click(WebElement el) {
+		getWait().until(ExpectedConditions.elementToBeClickable(el)).click();
+	}
+	
 	public void type(By el, String text) {
-		getWait().until(ExpectedConditions.visibilityOfElementLocated(el)).sendKeys(text);
+		WebElement field= getWait().until(ExpectedConditions.visibilityOfElementLocated(el));
+		field.clear();
+		field.sendKeys(text);
 	}
 	
 	public boolean isVisible(By el) {
@@ -72,10 +80,27 @@ public class PageUtils {
 	    }
 	}
 	
-	public void selectDropDown(By el, String value) {
+	public String getElementText(WebElement el) {
+        return getWait().until(
+            ExpectedConditions.visibilityOf(el)
+            ).getText();
+	}
+	
+	public void selectDropDownByValue(By el, String value) {
 		WebElement drpDown= getWait().until(ExpectedConditions.elementToBeClickable(el));
 		Select select= new Select(drpDown);
 		select.selectByValue(value);
+	}
+	
+	public void selectDropDownByVisibleText(By el, String text) {
+		WebElement drpDown= getWait().until(ExpectedConditions.elementToBeClickable(el));
+		Select select= new Select(drpDown);
+		select.selectByVisibleText(text);
+	}
+	
+	public void alertAccept() {
+		Alert myAlert= getWait().until(ExpectedConditions.alertIsPresent());
+		myAlert.accept();
 	}
 	
 }

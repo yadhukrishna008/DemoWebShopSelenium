@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features="src/test/resources/FeatureFiles/",
 		glue= {"hooks", "stepDefinition"},
-		tags="@pro",
+		tags="@checkout",
 		dryRun=false,
 		monochrome= true,
 		plugin= {

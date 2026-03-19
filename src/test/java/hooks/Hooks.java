@@ -3,7 +3,7 @@ package hooks;
 import java.io.IOException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
+import org.openqa.selenium.WebDriver;
 import driver.DriverManager;
 import driver.TestBase;
 import io.cucumber.java.Scenario;
@@ -21,8 +21,14 @@ public class Hooks {
 	
 	@After
 	public void tearDown() {
-		if (DriverManager.getDriver() != null) {
-	        DriverManager.getDriver().quit();
+		try {
+	        WebDriver driver = DriverManager.getDriver();
+	        if (driver != null) {
+	            driver.quit();
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Driver quit failed: " + e.getMessage());
+	    } finally {
 	        DriverManager.unload();
 	    }
 	}

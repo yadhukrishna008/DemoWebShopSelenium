@@ -1,11 +1,8 @@
 package stepDefinition;
 
-import java.io.IOException;
 import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,7 +11,6 @@ import pages.ProductCatalogPage;
 import pages.ProductDetailsPage;
 import pages.LoginPage;
 import pages.HomePage;
-import utils.ConfigReader;
 
 public class ProductSteps {
 	TestContext testContext;
@@ -29,20 +25,6 @@ public class ProductSteps {
 		this.prodDetailsPage= testContext.pageObjectManager.getprodDetailsPO();
 		this.loginPage= testContext.pageObjectManager.getLoginPO();
 		this.homePage= testContext.pageObjectManager.getHomePO();
-	}
-	
-	@Given("user is logged in to the account")
-	public void user_is_logged_in_to_the_account() throws IOException {
-		this.homePage.toLogin();
-	    this.loginPage.enterMail(ConfigReader.getUserName("valid_user"));
-	    this.loginPage.enterPassword(ConfigReader.getPassword("valid_pass"));
-	    this.loginPage.clickLogin();
-	}
-	
-	@Given("user hovers over category {string} and select {string}")
-	public void user_hovers_over_category_and_select(String category, String subCategory) {
-	    this.prodCatPage.hoverProdCategory(category);
-	    this.prodCatPage.selectSubCategory(subCategory);
 	}
 	
 	@Given("user is on product sub category page {string}")
@@ -87,10 +69,12 @@ public class ProductSteps {
 	    		descriptionStatus != null && !descriptionStatus.isEmpty(), 
 	    		"Description is invalid!!");
 	}
+	
 	@Given("user opens product {string}")
 	public void user_opens_product(String product) {
 	    this.prodCatPage.openProduct(product);
 	}
+	
 	@When("user changes product configuration")
 	public void user_changes_product_configuration() {
 	    this.prodDetailsPage.selectProcessor();
@@ -99,6 +83,7 @@ public class ProductSteps {
 	    this.prodDetailsPage.selectSoftware();
 	    this.prodDetailsPage.selectHddCheckbox();
 	}
+	
 	@Then("product price should update accordingly")
 	public void product_price_should_update_accordingly() {
 		Assert.assertEquals(this.prodDetailsPage.addToCartStatus(), "success", "Product is not added succesfully");

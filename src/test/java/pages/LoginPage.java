@@ -12,6 +12,7 @@ public class LoginPage {
 	private By no_customer_error= By.xpath("//li[contains(text(), 'No customer')]");
 	private By cred_error= By.xpath("//li[contains(text(), 'The credentials')]");
 	private By inAccountLink= By.cssSelector("div.header-links a.account");
+	private By welcome_title= By.cssSelector("div.page-title h1");
 	
 	public LoginPage(){
 		this.pUtils= new PageUtils();
@@ -40,5 +41,9 @@ public class LoginPage {
 			return "invalid_cred";
 		}
 		return null;
+	}
+	
+	public boolean inLoginPage() {
+		return this.pUtils.getElementText(welcome_title).contains("Please Sign In!");
 	}
 }

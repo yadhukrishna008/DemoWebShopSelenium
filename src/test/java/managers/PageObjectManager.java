@@ -5,6 +5,9 @@ import pages.LoginPage;
 import pages.RegisterPage;
 import pages.ProductCatalogPage;
 import pages.ProductDetailsPage;
+import pages.CartPage;
+import pages.CheckoutPage;
+
 
 public class PageObjectManager {
 	
@@ -27,4 +30,13 @@ public class PageObjectManager {
 	public ProductDetailsPage getprodDetailsPO() {
 		return new ProductDetailsPage();
 	}
+	
+	public CartPage getCartPO() {
+		return new CartPage();
+	}
+	
+	public CheckoutPage getCheckoutPO() {
+		return new CheckoutPage();
+	}
+	
 }

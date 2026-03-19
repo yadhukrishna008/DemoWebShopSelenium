@@ -14,6 +14,7 @@ import utils.ConfigReader;
 
 public class TestBase {
 	
+	@SuppressWarnings("deprecation")
 	public static WebDriver initDriver() throws IOException {
 		String myBrowser= ConfigReader.getBrowser();
 		
