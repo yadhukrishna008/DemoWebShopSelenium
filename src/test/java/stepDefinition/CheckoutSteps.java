@@ -125,4 +125,23 @@ public class CheckoutSteps {
 	    		"The error message not observed!!");
 	}
 	
+	@When("user completes checkout with valid details")
+	public void user_completes_checkout_with_valid_details() {
+		if(this.checkoutPage.billingDetailsNotPresent()) {
+		    this.checkoutPage.enterBillingFname("Yadhu");
+		    this.checkoutPage.enterBillingLname("Krishna");
+		    this.checkoutPage.enterBillingMail("aaaaaaa@gmail.com");
+		    this.checkoutPage.enterBillingCountry("41");
+		    this.checkoutPage.enterBillingCity("Kochi");
+		    this.checkoutPage.enterBillingAddress("new house");
+		    this.checkoutPage.enterBillingZIP("22222");
+		    this.checkoutPage.enterBillingPhone("11111111111");
+		}
+		this.checkoutPage.clickBillingContinue();
+		this.checkoutPage.clickShippingContinue();
+		this.checkoutPage.clickPaymentContinue();
+	    this.checkoutPage.confirmPaymentInfo();
+	    this.checkoutPage.confirmPayment();
+	}
+	
 }

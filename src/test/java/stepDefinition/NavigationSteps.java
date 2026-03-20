@@ -55,6 +55,11 @@ public class NavigationSteps {
 	    this.prodCatPage.selectSubCategory(subCategory);
 	}
 	
+	@When("user navigates to cart")
+	public void user_navigates_to_cart() {
+	    this.homePO.toCart();
+	}
+	
 	@When("user proceeds to checkout")
 	public void user_proceeds_to_checkout() {
 	    this.cartPage.toCheckout();

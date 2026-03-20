@@ -88,4 +88,31 @@ public class ProductSteps {
 	public void product_price_should_update_accordingly() {
 		Assert.assertEquals(this.prodDetailsPage.addToCartStatus(), "success", "Product is not added succesfully");
 	}
+	
+	@When("user searches for product {string}")
+	public void user_searches_for_product(String text) {
+	    this.prodCatPage.searchProduct(text);
+	}
+	
+	@Then("relevant products of {string} should be displayed")
+	public void relevant_products_of_should_be_displayed(String searchText) {
+	    List<WebElement> products= this.prodCatPage.getAllSearchedProducts(searchText);
+		Assert.assertTrue(products.size() > 0, "No products were found for the search term!");
+	}
+	
+	@Then("{string} search error should appear")
+	public void search_error_should_appear(String status) {
+	    Assert.assertTrue(
+	    		this.prodCatPage.invalidProdSearchStatus(status),
+	    		"Error message not matched!!!");
+	}
+	
+	@Then("system should display {string} alert")
+	public void system_should_display_alert(String alertText) {
+	    Assert.assertTrue(
+	    		this.prodCatPage.checkAlertText(alertText),
+	    		"Pop-up message Mismatches!!!");
+	}
+
+	
 }

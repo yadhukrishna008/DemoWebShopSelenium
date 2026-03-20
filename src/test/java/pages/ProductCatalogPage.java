@@ -17,12 +17,14 @@ PageUtils pageUtils;
 	private By addToCartBtn = By.cssSelector("div.product-grid div.buttons input");
 	private By searchField= By.id("small-searchterms");
 	private By searchBtn= By.className("search-box-button");
+	private By invalidProductResult= By.cssSelector("div.search-results strong");
 	
 //	for dynamic loc
 	private String topMenu= "ul.top-menu > li > a[href='/%s']";
 	private String subList= "ul.top-menu ul.sublist a[href='/%s']";
 	private String subCatTitle= "//h1[text()='%s']";
 	private String productLocator= "//h2[@class='product-title']/a[text()='%s']";
+	private String searchedProds= "//h2/a[contains(@href, '%s')]";
 	
 	public ProductCatalogPage() {
 		this.pageUtils= new PageUtils();
@@ -76,6 +78,18 @@ PageUtils pageUtils;
 		this.pageUtils.click(searchBtn);
 	}
 	
+	public List<WebElement> getAllSearchedProducts(String searchText){
+		By path= By.xpath(String.format(searchedProds, searchText));
+		return this.pageUtils.getElements(path);
+	}
 	
+	public boolean invalidProdSearchStatus(String status) {
+		String searchStatus= this.pageUtils.getElementText(invalidProductResult);
+		return searchStatus.strip().equalsIgnoreCase(status);
+	}
+	
+	public boolean checkAlertText(String alertText) {
+		return this.pageUtils.getAlertText().strip().equalsIgnoreCase(alertText);
+	}
 
 }

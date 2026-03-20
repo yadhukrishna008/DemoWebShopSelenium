@@ -103,4 +103,9 @@ public class PageUtils {
 		myAlert.accept();
 	}
 	
+	public String getAlertText() {
+		Alert myAlert= getWait().until(ExpectedConditions.alertIsPresent());
+		return myAlert.getText();
+	}
+	
 }
